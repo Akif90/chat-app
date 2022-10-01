@@ -24,13 +24,13 @@ const EditableInput = ({
     setInput(initialValue);
   }, [initialValue]);
 
-  const onSaveClick = useCallback(async () => {
+  const onSaveClick = async () => {
     const trimmed = input.trim();
     if (trimmed === '') Alert.info(emptyMsg, 4000);
 
     if (trimmed !== initialValue) await onSave(trimmed);
     setIsEditable(false);
-  }, [emptyMsg, initialValue, input, onSave]);
+  };
   return (
     <div>
       {label}
