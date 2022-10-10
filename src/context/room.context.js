@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 import { database } from '../misc/firebase';
 import { tranformToArrWithId } from '../misc/helper';
 
@@ -11,15 +11,16 @@ export const RoomsProvider = ({ children }) => {
     roomListRef.on('value', snap => {
       const data = tranformToArrWithId(snap.val());
       setRooms(data);
-      console.log(data);
+      // console.log(data);
 
       return () => {
         roomListRef.off();
       };
     });
-  });
+  }, []);
 
   return (
     <RoomsContext.Provider value={rooms}>{children}</RoomsContext.Provider>
   );
 };
+export const useRooms = () => useContext(RoomsContext);
