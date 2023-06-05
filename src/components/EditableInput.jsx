@@ -7,6 +7,7 @@ const EditableInput = ({
   label = null,
   onSave,
   placeholder = 'Write Your name',
+  wrapperClassName = '',
   emptyMsg = 'Input is missing',
   ...inputProps
 }) => {
@@ -32,7 +33,7 @@ const EditableInput = ({
     setIsEditable(false);
   };
   return (
-    <div>
+    <div className={wrapperClassName}>
       {label}
       <InputGroup>
         <Input
