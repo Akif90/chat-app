@@ -8,7 +8,7 @@ import { auth } from '../../../misc/firebase';
 import IconBtnControl from './IconBtnControl';
 import { useMediaQuery } from '../../../misc/custom-hooks';
 
-const MessageItem = ({ message, handleAdmin, handleLike }) => {
+const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
   const { author, createdAt, text, likes, likeCount } = message;
 
   const isAdmin = useCurrentRoom(v => v.isAdmin);
@@ -56,6 +56,16 @@ const MessageItem = ({ message, handleAdmin, handleLike }) => {
           }}
           badgeContent={likeCount}
         />
+        {isAuthor && (
+          <IconBtnControl
+            isVisible={canShowIcons}
+            iconName="close"
+            tooltip="Delete the message"
+            onClick={() => {
+              handleDelete(message.id);
+            }}
+          />
+        )}
       </div>
       <div>
         <span className="word-break-all">{text}</span>
