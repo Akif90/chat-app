@@ -7,15 +7,23 @@ import { storage } from '../../../misc/firebase';
 const MAX_FILE_SIZE = 1000 * 1024 * 5;
 const AttachmentBtnModal = ({ afterUpload }) => {
   const { open, isOpen, close } = useModalState();
+
   const { chatId } = useParams();
+
   const [fileList, setFileList] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
+
   const onChange = fileArr => {
     const filtered = fileArr
-      .filter(file => file.blobFile.size <= MAX_FILE_SIZE)
+
+      .filter(el => el.blobFile.size <= MAX_FILE_SIZE)
+
       .slice(0, 5);
+
     setFileList(filtered);
   };
+
   const onUpload = async () => {
     try {
       const uploadPromises = fileList.map(f => {
@@ -26,18 +34,23 @@ const AttachmentBtnModal = ({ afterUpload }) => {
             cacheControl: `public ,max-age = ${3600 * 24 * 3}`,
           });
       });
+
       const uploadSnapshots = await Promise.all(uploadPromises);
+
       const shapePromises = uploadSnapshots.map(async snap => {
         return {
-          contenetType: snap.metadata.contentType,
+          contentType: snap.metadata.contentType,
           name: snap.metadata.name,
           url: await snap.ref.getDownloadURL(),
         };
       });
 
       const files = await Promise.all(shapePromises);
+
       await afterUpload(files);
+
       setIsLoading(false);
+
       close();
     } catch (err) {
       setIsLoading(false);

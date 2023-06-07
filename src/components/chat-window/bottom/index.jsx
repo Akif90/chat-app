@@ -84,6 +84,7 @@ const ChatBottom = () => {
       try {
         await database.ref().update(updates);
         setIsLoading(false);
+        Alert.success('Uploaded', 6000);
       } catch (error) {
         setIsLoading(false);
         Alert.error(error.message);
