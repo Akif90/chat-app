@@ -45,6 +45,6 @@ export function useHover() {
       node.removeEventListener('mouseover', handleMouseOver);
       node.removeEventListener('mouseout', handleMouseOut);
     };
-  }, [ref.current]);
+  }, []);
   return [ref, value];
 }
