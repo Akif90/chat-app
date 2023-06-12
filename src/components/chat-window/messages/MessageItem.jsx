@@ -85,7 +85,7 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
             iconName="close"
             tooltip="Delete the message"
             onClick={() => {
-              handleDelete(message.id);
+              handleDelete(message.id, file);
             }}
           />
         )}
